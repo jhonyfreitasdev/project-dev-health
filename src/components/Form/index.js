@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import ResultImc from '../ResultImc';
+import styles from './style';
 
 export default function Form() {
     const [height, setHeight] = useState(null);
@@ -17,35 +18,39 @@ export default function Form() {
             setWeight(null);
             setMessageImc('Seu imc é igual:');
             setTextButton('Calcular novamente');
-            return 
+            return
         };
         setImc(null);
         setMessageImc('Preencha o peso de altura');
         setTextButton('Calcular');
     };
     return (
-        <View>
-            <View>
-                <Text>Altura</Text>
+        <View style={styles.formContext}>
+            <View style={styles.form}>
+                <Text style={styles.formLabel}>Altura</Text>
                 <TextInput
+                    style={styles.formInput}
                     onChangeText={setHeight}
                     value={height}
                     placeholder='Ex: 1.75'
                     keyboardType='numeric'
                 />
 
-                <Text>Altura</Text>
+                <Text style={styles.formLabel}>Peso</Text>
                 <TextInput
+                    style={styles.formInput}
                     onChangeText={setWeight}
                     value={weight}
                     placeholder='Ex: 82.50'
                     keyboardType='numeric'
                 />
-
-                <Button title={textButton} onPress={validation} />
-                <ResultImc messageResultImc={messageImc} result={imc} />
+                <TouchableOpacity onPress={validation} style={styles.buttonCalculator}>
+                    <Text style={styles.textButtonCalculator}>
+                        {textButton}
+                    </Text>
+                </TouchableOpacity>
             </View>
-            <ResultImc />
+            <ResultImc messageResultImc={messageImc} result={imc} />
         </View>
     );
 };
