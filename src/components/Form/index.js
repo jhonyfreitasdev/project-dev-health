@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Vibration } from 'react-native';
 import ResultImc from '../ResultImc';
 import styles from './style';
 
@@ -8,26 +8,47 @@ export default function Form() {
     const [weight, setWeight] = useState(null);
     const [messageImc, setMessageImc] = useState('Preencha o peso de altura');
     const [imc, setImc] = useState(null);
-    const [textButton, setTextButton] = useState('Calcular ');
+    const [heightError, setHeightError] = useState(null);
+    const [weightError, setWeightError] = useState(null);
+    const [textButton, setTextButton] = useState('Calcular');
 
     const imcCalculator = () => setImc((weight / (height * height)).toFixed(2));
-    const validation = () => {
-        if (!!weight && !!height) {
+
+    const verificationImc = () => {
+        const messageError = 'Campo obrigatório';
+
+        if (!height) {
+            setHeightError(messageError);
+            Vibration.vibrate();
+        } else setHeightError(null);
+
+        if (!weight) {
+            setWeightError(messageError);
+            Vibration.vibrate();
+        } else setWeightError(null);
+    };
+
+    const validationImc = () => {
+        if (!!height && !!weight) {
             imcCalculator();
-            setHeight(null);
-            setWeight(null);
             setMessageImc('Seu imc é igual:');
+            setWeight(null);
+            setHeight(null);
             setTextButton('Calcular novamente');
-            return
+            return verificationImc();
         };
-        setImc(null);
+
+        if (textButton === 'Calcular') verificationImc();
         setMessageImc('Preencha o peso de altura');
         setTextButton('Calcular');
+        setImc(null);
     };
+
     return (
         <View style={styles.formContext}>
             <View style={styles.form}>
                 <Text style={styles.formLabel}>Altura</Text>
+                <Text style={styles.errorMessage}>{heightError}</Text>
                 <TextInput
                     style={styles.formInput}
                     onChangeText={setHeight}
@@ -37,6 +58,7 @@ export default function Form() {
                 />
 
                 <Text style={styles.formLabel}>Peso</Text>
+                <Text style={styles.errorMessage}>{weightError}</Text>
                 <TextInput
                     style={styles.formInput}
                     onChangeText={setWeight}
@@ -44,7 +66,8 @@ export default function Form() {
                     placeholder='Ex: 82.50'
                     keyboardType='numeric'
                 />
-                <TouchableOpacity onPress={validation} style={styles.buttonCalculator}>
+
+                <TouchableOpacity onPress={validationImc} style={styles.buttonCalculator}>
                     <Text style={styles.textButtonCalculator}>
                         {textButton}
                     </Text>
