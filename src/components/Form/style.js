@@ -17,25 +17,25 @@ const styles = StyleSheet.create({
   },
   formLabel: {
     fontSize: 18,
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   formInput: {
     width: '90%',
     borderRadius: 50,
     backgroundColor: '#f6f6f6',
     height: 40,
-    margin: 12,
+    marginLeft: 12,
+    marginBottom: 16,
     paddingLeft: 12
   },
   buttonCalculator: {
     borderRadius: 50,
     alignItems: 'center',
-    justifyContent: 'center',
     width: '90%',
     backgroundColor: '#ff0043',
     paddingTop: 14,
     paddingBottom: 14,
-    marginLeft: 12,
+    marginLeft: 10,
     marginTop: 30
   },
   textButtonCalculator: {
@@ -47,7 +47,36 @@ const styles = StyleSheet.create({
     color: '#ff0000',
     fontWeight: 'bold',
     paddingLeft: 20
-  } 
+  },
+  imcContext: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    marginTop: 30,
+    padding: 20
+  },
+  list: {
+    borderColor: '#c6c6c6',
+    borderWidth: 2,
+    width: '85%',
+    borderRadius: 15,
+    marginTop: 30
+  },
+  resultContainer: {
+    marginHorizontal: 'auto',
+    marginVertical: 15,
+    textAlign: 'center',
+    color: 'red',
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  label: {
+    fontWeight: 'normal',
+    fontSize: 16,
+  }
 });
 
 export default styles;
